@@ -23,5 +23,10 @@ export async function fetchPageContent(slug: string, locale: string) {
     },
   }));
 
-  return { key: pageKey, data };
+  // Extract the localized translation
+  const translation = Array.isArray(data.translations)
+    ? data.translations.find((t: any) => t.languages_code === locale)
+    : undefined;
+
+  return { key: pageKey, data, t: translation };
 }
