@@ -1,0 +1,17 @@
+node_modules
+.next
+.env*
+dist
+.DS_Store
+
+# Editor configs
+.vscode/
+.idea/
+
+# OS / logs
+Thumbs.db
+*.log
+
+# Optional build system artifacts
+.out/
+.cache/
