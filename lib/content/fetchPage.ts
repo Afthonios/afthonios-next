@@ -11,22 +11,28 @@ const slugMap = {
 };
 
 export async function fetchPageContent(slug: string, locale: string) {
-  const pageKey = slugMap[locale as 'fr' | 'en']?.[slug];
-  if (!pageKey) {
-    throw new Error(`Page not found: ${slug} (${locale})`);
+    const pageKey = slugMap[locale]?.[slug];
+    if (!pageKey) throw new Error(`Page not found: ${slug} (${locale})`);
+  
+    // deep + fields => volle Objekte, gleichzeitig nach Sprache filtern
+    const data = await directus.request(
+      readSingleton(pageKey, {
+        params: {
+          fields: [
+            '*',
+            { translations: ['*'] },   // alle Felder der Relation
+          ],
+          deep: {
+            translations: {
+              _filter: { languages_code: { _eq: locale } },
+            },
+          },
+        },
+      }),
+    );
+  
+    // Nach dem deep-Filter ist garantiert genau 1 Translation im Array
+    const t = data.translations?.[0];
+  
+    return { key: pageKey, data, t };
   }
-
-  // Fetch the singleton entry using the Directus SDK
-  const data = await directus.request(readSingleton(pageKey, {
-    params: {
-      fields: ['*', 'translations.*'],
-    },
-  }));
-
-  // Extract the localized translation
-  const translation = Array.isArray(data.translations)
-    ? data.translations.find((t: any) => t.languages_code === locale)
-    : undefined;
-
-  return { key: pageKey, data, t: translation };
-}
