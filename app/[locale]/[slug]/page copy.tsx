@@ -11,8 +11,6 @@ const pageComponentMap: Record<string, PageComponent> = {
   page_test: PageTest,
 }
 
-// The warning in your console suggests your Next.js setup might expect `params` to be a Promise.
-// Reverting to the `await params` pattern to resolve the warning.
 export default async function Page({
   params,
 }: {
@@ -24,23 +22,19 @@ export default async function Page({
   try {
     pageData = await fetchPageContent(slug, locale)
   } catch (error) {
-    console.error(`Error fetching page content for slug "${slug}" and locale "${locale}":`, error)
+    console.error('fetchPageContent error', error)
     notFound()
   }
 
-  if (!pageData) {
-    notFound()
-  }
+  if (!pageData) notFound()
 
   const { key, data, t } = pageData
   const Component = pageComponentMap[key]
 
   if (!Component) {
-    console.error(`[Page] No component found for page key: "${key}"`)
+    console.error('No component for:', key)
     notFound()
   }
-  
-  console.log('🧪 t-object being passed to component:', t)
-  
+  console.log('🧪 t-object', t)
   return <Component data={data} t={t} locale={locale} />
 }
