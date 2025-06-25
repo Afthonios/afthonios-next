@@ -39,17 +39,7 @@ export async function fetchPageContent(slug: string, locale: string) {
 
   const data = await directus.request(
     readSingleton(pageKey, {
-      fields: [
-        '*',
-        {
-          translations: [
-            'title',
-            'subtitle',
-            'intro_text',
-            'languages_code'
-          ]
-        }
-      ],
+      fields: ['*', { translations: ['*'] }],
       deep: {
         translations: {
           // Use the mapped Directus-specific locale code in the filter.

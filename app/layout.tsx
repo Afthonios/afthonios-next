@@ -1,15 +1,13 @@
 // app/layout.tsx
-import '@/styles/globals.css';
-import React from 'react';
+import '../styles/globals.css';
 
-export const metadata = {
-  title: 'Afthonios',
-  description: 'Bilinguale Trainingsplattform',
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <body>{children}</body>
     </html>
   );

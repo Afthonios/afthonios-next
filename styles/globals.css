@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* === Global Typography Styles === */
+.heading-1 {
+  @apply text-4xl font-bold text-neutral-900 dark:text-neutral-100;
+}
+
+.heading-2 {
+  @apply text-2xl font-semibold text-neutral-800 dark:text-neutral-100;
+}
+
+.text-body {
+  @apply text-base leading-relaxed text-neutral-800 dark:text-neutral-200;
+}
+
+/* === Section Styling === */
+.section-container {
+  @apply px-6 py-12 max-w-5xl mx-auto;
+}
+
+/* === Buttons === */
+.button-primary {
+  @apply bg-orange-500 text-white font-semibold px-6 py-3 rounded-md hover:bg-orange-600;
+}
+
+/* === Prose content (for HTML blocks) === */
+.prose-content {
+  @apply prose prose-neutral dark:prose-invert max-w-none;
+}
