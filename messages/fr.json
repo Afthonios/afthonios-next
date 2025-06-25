@@ -1,4 +1,13 @@
 {
-    "title": "Bienvenue",
-    "subtitle": "Ceci est votre cours gratuit"
+  "NotFound": {
+    "title": "Page non trouvée",
+    "description": "Désolé, nous n'avons pas pu trouver la page que vous recherchiez."
+  },
+  "TestPage": {
+    "title": "Succès ! La configuration i18n fonctionne."
+  },
+  "SlugPage": {
+    "pageTitle": "Cours de la semaine",
+    "pageDescription": "Bienvenue au cours."
   }
+}

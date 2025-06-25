@@ -1,24 +1,33 @@
-// app/[locale]/layout.tsx
 import React from 'react';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import '@styles/globals.css';
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { setRequestLocale } from 'next-intl/server';
 
 export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'fr' }];
 }
 
+// THIS IS THE FIX: The function signature is changed to be more stable
+// It accepts `params` as a whole object instead of destructuring it.
 export default function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  unstable_setRequestLocale(locale);
+  const locale = params.locale;
+
+  setRequestLocale(locale);
+  
+  const messages = useMessages();
 
   return (
     <html lang={locale}>
-      <body>{children}</body>
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
+      </body>
     </html>
   );
 }
